@@ -27,19 +27,19 @@ public class FileInspector {
                     System.out.println(line);
                     lineCount = lineCount + 1;
                     wordCount = line.split("\\s+").length + wordCount;
-                    charCount = line.length()+ charCount;
+                    charCount = line.length()+ charCount; }
+
                     System.out.println("\nSummary report: ");
                     System.out.println("File: " + target.toFile().getName());
                     System.out.println("Line: " + lineCount);
                     System.out.println("Word: " + wordCount);
                     System.out.println("Characters: " + charCount);
-                    inFile.close();}
+                    inFile.close();
 
-                else {
-                    System.out.println("No such file or directory. Terminating.");
+            else { System.out.println("No such file or directory. Terminating.");
                     System.exit(0);}
-            }
-        } catch (Exception e) {
+        }
+    } catch (Exception e) {
             System.out.println("Error.");
             e.printStackTrace();
             System.exit(0);}
