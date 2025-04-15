@@ -15,7 +15,7 @@ public class FileInspector {
         int charCount = 0;
         Path target = new File(System.getProperty("user.dir") + "\\src\\main\\java\\FileInspector.java").toPath();
         target = target.resolve("src");
-        chooser.setCurrentDirectory(target.toFile());
+        chooser.setCurrentDirectory(new File("src"));
 
         try {
             if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
@@ -29,7 +29,7 @@ public class FileInspector {
                     wordCount = line.split("\\s+").length + wordCount;
                     charCount = line.length() + charCount;}
 
-                System.out.println("\nSummary report: ");
+                System.out.println("\n Summary report: ");
                 System.out.println("File: " + target.toFile().getName());
                 System.out.println("Line: " + lineCount);
                 System.out.println("Word: " + wordCount);
