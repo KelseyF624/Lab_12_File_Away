@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.nio.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,7 +15,7 @@ public class DataSaver {
     public static void main (String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        ArrayList<String> recs = new ArrayList<>();
+        ArrayList<String> records = new ArrayList<>();
         boolean notDone = false;
         int idCounter = 1;
         int birthYear;
@@ -33,8 +32,8 @@ public class DataSaver {
             email = SafeInput.getNonZeroLenString(sc, "Enter your email address");
             birthYear = SafeInput.getRangedInt(sc, "Enter your birth year.", 0, 9999);
             idNumber = SafeInput.getNonZeroLenString(sc, "Enter your ID number.");
-            String record = String.format("%s, %s, %s, %s, %d", firstName, lastName, idNumber, email, birthYear);
-            String.valueOf(record);
+            String record = firstName + "," + lastName + "," + idNumber + "," + email + "," + birthYear;
+            records.add(record);
             notDone = SafeInput.getYNConfirm(sc, "Do you want to enter another record?[y/n]");
 
         } while (notDone);
@@ -49,7 +48,7 @@ public class DataSaver {
             new BufferedOutputStream(Files.newOutputStream(file, CREATE));
             BufferedWriter writer = 
                     new BufferedWriter(new OutputStreamWriter(out));
-            for (String rec : recs) {
+            for (String rec : records) {
                 writer.write(rec, 0, rec.length());
                 writer.newLine();}
             writer.close();
