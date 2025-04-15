@@ -1,58 +1,48 @@
 import javax.swing.JFileChooser;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import static java.nio.file.StandardOpenOption.CREATE;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class FileInspector {
+    public static void main(String[] args) {
 
-    JFileChooser chooser = new JFileChooser();
-    File selectedFile;
-    String aString = "";
-    String line;
-    ArrayList<String> lines = new ArrayList<>();
-    int lineCount = 0;
-    int wordCount = 0;
-    int charCount = 0;
-    Scanner inFile;
-    Path target = new File(System.getProperty("user.dir")).toPath();
-    target =target.resolve("src");
-    chooser.setCurrentDirectory(target.toFile);
+        Scanner inFile;
+        String line;
+        JFileChooser chooser = new JFileChooser();
+        int lineCount = 0;
+        int wordCount = 0;
+        int charCount = 0;
+        Path target = new File(System.getProperty("user.dir") + "\\src\\main\\java\\FileInspector.java").toPath();
+        target = target.resolve("src");
+        chooser.setCurrentDirectory(target.toFile());
 
+        try {
+            if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                target = chooser.getSelectedFile().toPath();
+                inFile = new Scanner(target);
 
-    try{
+                while (inFile.hasNextLine()) {
+                    line = inFile.nextLine();
+                    System.out.println(line);
+                    lineCount = lineCount + 1;
+                    wordCount = line.split("\\s+").length + wordCount;
+                    charCount = line.length()+ charCount;
+                    System.out.println("\nSummary report: ");
+                    System.out.println("File: " + target.toFile().getName());
+                    System.out.println("Line: " + lineCount);
+                    System.out.println("Word: " + wordCount);
+                    System.out.println("Characters: " + charCount);
+                    inFile.close();}
 
-        File workingDirectory = chooser.getCurrentDirectory();
-        chooser.setCurrentDirectory(workingDirectory);
-
-        if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            selectedFile = chooser.getSelectedFile();
-            Path File = selectedFile.toPath();
-            InputStream in = null;
-            try {
-                in = new BufferedInputStream(Files.newInputStream(File, CREATE));
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                else {
+                    System.out.println("No such file or directory. Terminating.");
+                    System.exit(0);}
             }
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        } catch (Exception e) {
+            System.out.println("Error.");
+            e.printStackTrace();
+            System.exit(0);}
 
-        }
-        while (reader.ready()) {
-            aString = reader.readLine();
-            lineCount++;
-            System.out.printf("\nLine %4d %-60s ", lineCount, aString);
-        }
-        reader.close();
-        System.out.println("\n\nData file read.");
     }
-
-} catch (FileNotFoundException e){
-    System.out.println("File not found.");
-    e.printStackTrace();}
-
-catch (IOException e) {
-    throw new RuntimeException(e);}
-}
 }
