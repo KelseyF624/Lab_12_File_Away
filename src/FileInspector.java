@@ -18,6 +18,7 @@ public class FileInspector {
         chooser.setCurrentDirectory(new File("src"));
 
         try {
+
             if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                 target = chooser.getSelectedFile().toPath();
                 inFile = new Scanner(target);
