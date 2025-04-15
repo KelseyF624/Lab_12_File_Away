@@ -33,7 +33,7 @@ public class DataSaver {
             email = SafeInput.getNonZeroLenString(sc, "Enter your email address");
             birthYear = SafeInput.getRangedInt(sc, "Enter your birth year.", 0, 9999);
             idNumber = SafeInput.getNonZeroLenString(sc, "Enter your ID number.");
-            recs.add(String.format("%s, %s, %s, %04d", firstName, lastName, email, birthYear));
+            String record = String.format("%s, %s, %s, %s, %d", firstName, lastName, idNumber, email, birthYear);
             notDone = SafeInput.getYNConfirm(sc, "Do you want to enter another record?[y/n]");
 
         } while (notDone);
