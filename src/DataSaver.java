@@ -18,9 +18,8 @@ public class DataSaver {
         Scanner sc = new Scanner(System.in);
         ArrayList<String> recs = new ArrayList<>();
         boolean notDone = false;
-        int Counter = 1;
+        int idCounter = 1;
         int birthYear;
-        int idNumber;
         String firstName = "";
         String lastName = "";
         String email = "";
@@ -28,12 +27,13 @@ public class DataSaver {
 
         do {
 
+            String idNumber = String.format("%06d", idCounter++);
             firstName = SafeInput.getNonZeroLenString(sc, "Enter your first name.");
             lastName = SafeInput.getNonZeroLenString(sc, "Enter your last name.");
-            email = SafeInput.getRegExString(sc, "Enter your email address", "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$]");
+            email = SafeInput.getNonZeroLenString(sc, "Enter your email address");
             birthYear = SafeInput.getRangedInt(sc, "Enter your birth year.", 0, 9999);
-            idNumber = SafeInput.getRangedInt(sc, "Enter your id number", 000001, 999999);
-            recs.add(String.format("%s, %s, %s, %04d", firstName, lastName, idNumber, email, birthYear));
+            idNumber = SafeInput.getNonZeroLenString(sc, "Enter your ID number.");
+            recs.add(String.format("%s, %s, %s, %04d", firstName, lastName, email, birthYear));
             notDone = SafeInput.getYNConfirm(sc, "Do you want to enter another record?[y/n]");
 
         } while (notDone);
